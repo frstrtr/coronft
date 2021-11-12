@@ -16,12 +16,10 @@ contours, hierarchy = cv2.findContours(image=thresh, mode=cv2.RETR_LIST , method
                                      
 # draw contours on the original image
 image_copy = image.copy()
-for contour in contours:
-    convexHull = cv2.convexHull(contour)
-    cv2.drawContours(image=image_copy, contours=[convexHull], contourIdx=-1, color=(0, 255, 0), thickness=2, lineType=cv2.LINE_AA)
+cv2.drawContours(image=image_copy, contours=[contours[0]], contourIdx=-1, color=(0, 255, 0), thickness=2, lineType=cv2.LINE_AA)
 
 for i in range(len(contours)):
-    _contour = cv2.convexHull(contours[i])
+    _contour = contours[i]#cv2.convexHull(contours[i])
     print("Contours:")
     print('len={0}'.format(len(_contour)))
     print(_contour)
