@@ -1,0 +1,2 @@
+mesh Th1 = square(1,6);
+plot(Th1);

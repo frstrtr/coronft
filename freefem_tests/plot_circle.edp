@@ -1,0 +1,12 @@
+border a(t=0, 2*pi){x=cos(t); y=sin(t); label=1;}
+border b(t=0, 2*pi){x=0.3*cos(t); y=0.3*sin(t); label=2;}
+int ax = 50, bx = 50;
+// plot(a(ax) + b(bx)); //to see a plot of the border mesh
+mesh Thwithouthole = buildmesh(a(ax) + b(bx));
+Thwithouthole = emptymesh(Thwithouthole);
+mesh Thwithhole = buildmesh(a(ax) + b(-bx));
+Thwithhole = emptymesh(Thwithhole);
+// plot(Thwithouthole, ps="Thwithouthole.eps");
+// plot(Thwithhole, ps="Thwithhole.eps");
+plot(Thwithouthole);
+plot(Thwithhole, fill=true);
