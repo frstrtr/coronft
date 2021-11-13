@@ -33,13 +33,16 @@ real xl = Curves(0, ic0:ic1).max - 5;
 real yl = Curves(1, ic0:ic1).min + 5;
 border G(t=0, 1){P=Curve(Curves, ic0, ic1, t); label=1+(x>xl)*2+(y<yl);}
 plot(G(-NC), wait=true);
+cout << "4" << endl;
 
 mesh Th = buildmesh(G(-NC));
 plot(Th, wait=true);
+cout << "5" << endl;
 
-real scale = sqrt(AreaLac/Th.area);
-Th = movemesh(Th, [x*scale, y*scale]);
+// real scale = sqrt(AreaLac/Th.area);
+// Th = movemesh(Th, [x*scale, y*scale]);
 cout << "Th.area = " << Th.area << " Km^2 " << endl; //" == " << AreaLac << " Km^2 " << endl;
 plot(Th, ps="leman.eps");
+savemesh(Th, "covid.mesh");
 cout << "Finish" << endl;
 
