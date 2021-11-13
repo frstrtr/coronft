@@ -9,7 +9,8 @@
 // plot(Th);
 
 mesh Thxy=triangulate("xyf.txt"); //points are defined by the first 2 columns of file `xyf`
-adaptmesh(Thxy, 1./30., IsMetric=1, nbvx=10000);
+// adaptmesh(Thxy, 1./30., IsMetric=1, nbvx=10000);
 
 // Plot the created mesh
 plot(Thxy);
+cout << "finish" << endl;
