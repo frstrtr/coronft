@@ -1,0 +1,14 @@
+// int[int] xx = [1,2,3,4];
+// int[int] yy = [1,2,3,4];
+
+// border a(t=0, 3){x=xx[t]; y=yy[t]; label=1;}
+
+
+// // mesh Th = triangulate(a(2));
+// mesh Th = buildmesh(a(4));
+// plot(Th);
+
+mesh Thxy=triangulate("xyf.txt"); //points are defined by the first 2 columns of file `xyf`
+
+// Plot the created mesh
+plot(Thxy);
