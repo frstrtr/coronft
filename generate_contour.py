@@ -1,6 +1,12 @@
 import cv2
 
-image = cv2.imread('images/coronavirus-png-68_2_without_alpha.png')
+_image = cv2.imread('images/coronavirus-png-68_2_without_alpha.png')
+
+scale_percent = 40 # percent of original size
+width = int(_image.shape[1] * scale_percent / 100)
+height = int(_image.shape[0] * scale_percent / 100)
+dim = (width, height)
+image = cv2.resize(_image,dim, interpolation=cv2.INTER_AREA)
 img_gray = cv2.cvtColor(image, cv2.COLOR_BGRA2GRAY)
 
 # apply binary thresholding
@@ -12,12 +18,11 @@ ret, thresh = cv2.threshold(img_gray, 150, 255, cv2.THRESH_BINARY)
 # cv2.destroyAllWindows()
 
 # detect the contours on the binary image using cv2.CHAIN_APPROX_NONE
-_contours, hierarchy = cv2.findContours(image=thresh, mode=cv2.RETR_LIST , method=cv2.CHAIN_APPROX_NONE)
-contours = [cv2.approxPolyDP(contour, 0.1*cv2.arcLength(contour,True), True) for contour in _contours]
+contours, hierarchy = cv2.findContours(image=thresh, mode=cv2.RETR_LIST , method=cv2.CHAIN_APPROX_NONE)
 print(hierarchy)                                     
 # draw contours on the original image
 image_copy = image.copy()
-cv2.drawContours(image=image_copy, contours=[contours[1]], contourIdx=-1, color=(0, 255, 0), thickness=2, lineType=cv2.LINE_AA)
+cv2.drawContours(image=image_copy, contours=[contours[0]], contourIdx=-1, color=(0, 255, 0), thickness=2, lineType=cv2.LINE_AA)
 
 for i in range(len(contours)):
     _contour = contours[i]#cv2.convexHull(contours[i])
