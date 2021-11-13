@@ -22,10 +22,18 @@ for i in range(len(contours)):
     _contour = contours[i]#cv2.convexHull(contours[i])
     print("Contours:")
     print('len={0}'.format(len(_contour)))
+    print('Area={0}'.format(cv2.contourArea(_contour)))
     print(_contour)
+    print(contours)
     
 # see the results
 cv2.imshow('None approximation', image_copy)
 cv2.waitKey(0)
 cv2.imwrite('contours_none_image1.jpg', image_copy)
 cv2.destroyAllWindows()
+
+# f = open('contour.txt', 'w')
+# for x in contours[0]:
+#     f.write(str(x))
+# f.close()
+contours[0].tofile("contour.txt", sep = ",", format = "%s")
