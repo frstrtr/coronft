@@ -4,7 +4,7 @@ load "isoline"
 // Parameters
 string leman = "/home/sl33n/coronft/freefem_tests/isoline/image_thres1.pgm";
 real AreaLac = 3;//2;//580.03; //in km^2
-real hsize = 9.1; //size for contour border
+real hsize = 9.08; //size for contour border
 real[int, int] Curves(3, 1);
 int[int] be(1);
 int nc; //nb of curve
