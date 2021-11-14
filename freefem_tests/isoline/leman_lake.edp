@@ -3,8 +3,8 @@ load "isoline"
 
 // Parameters
 string leman = "/home/sl33n/coronft/freefem_tests/isoline/image_thres1.pgm";
-real AreaLac = 2;//580.03; //in km^2
-real hsize = 5;
+real AreaLac = 3;//2;//580.03; //in km^2
+real hsize = 4; //size for contour border
 real[int, int] Curves(3, 1);
 int[int] be(1);
 int nc; //nb of curve
@@ -41,6 +41,7 @@ cout << "5" << endl;
 
 // real scale = sqrt(AreaLac/Th.area);
 // Th = movemesh(Th, [x*scale, y*scale]);
+Th = movemesh(Th, [x*AreaLac, y*AreaLac]);
 cout << "Th.area = " << Th.area << " Km^2 " << endl; //" == " << AreaLac << " Km^2 " << endl;
 plot(Th, ps="leman.eps");
 savemesh(Th, "covid.mesh");
