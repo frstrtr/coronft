@@ -7,7 +7,7 @@ wanna_dots = 50
 covid = Image.open("/home/sl33n/coronft/generator/letters/covid_alpha.png", "r").convert("RGBA")
 covid = covid.resize((260,260), Image.ANTIALIAS)
 
-im = Image.new('RGB', (4000,4000), (255,255,255))
+im = Image.new('RGB', (7000,7000), (255,255,255))
 draw = ImageDraw.Draw(im)
 _xy = []
 
