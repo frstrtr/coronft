@@ -1,0 +1,88 @@
+load "ppm2rnm"
+load "isoline"
+
+real hsize = 90; //size for contour border
+
+// Parameters
+string leman = "/home/sl33n/coronft/generator/letters/a/letter_a_border(1).pgm";
+real AreaLac = 3;//2;//580.03; //in km^2
+
+real[int, int] Curves(3, 1);
+int[int] be(1);
+int nc; //nb of curve
+{
+    real[int, int] ff1(leman); //read image
+    //and set it in a rect. array
+    int nx = ff1.n, ny = ff1.m;
+    //build a Cartesian mesh such that the origin is in the right place.
+    mesh Th = square(nx-1, ny-1, [(nx-1)*(x), (ny-1)*(1-y)]);
+    // plot(Th, wait = true);
+    //warning the numbering of the vertices (x,y) is
+    //given by $i = x/nx + nx* y/ny $
+    fespace Vh(Th, P1);
+    Vh f1;
+    f1[] = ff1; //transform array in finite element functions.
+    nc = isoline(Th, f1, iso=0.25, close=0, Curves, beginend=be, smoothing=.1, ratio=0.5);
+    cout << "1" << endl;
+}
+cout << "2" << endl;
+//The longest isoline: the lake
+int ic0 = be(0), ic1 = be(1)-1;
+//plot([Curves(0, ic0:ic1), Curves(1, ic0:ic1)], wait=true);
+cout << "3" << endl;
+
+int NC = Curves(2, ic1)/hsize;
+real xl = Curves(0, ic0:ic1).max - 5;
+real yl = Curves(1, ic0:ic1).min + 5;
+border G(t=0, 1){P=Curve(Curves, ic0, ic1, t); label=1+(x>xl)*2+(y<yl);}
+
+//#######################################
+//####### triang ########################
+//#######################################
+string triang = "/home/sl33n/coronft/generator/letters/a/letter_a_border_triang.pgm";
+real AreaLac2 = 3;//2;//580.03; //in km^2
+real[int, int] Curves2(3, 1);
+int[int] be2(1);
+int nc2; //nb of curve
+{
+    real[int, int] ff12(triang); //read image
+    //and set it in a rect. array
+    int nx2 = ff12.n, ny2 = ff12.m;
+    //build a Cartesian mesh such that the origin is in the right place.
+    mesh Th2 = square(nx2-1, ny2-1, [(nx2-1)*(x), (ny2-1)*(1-y)]);
+    // plot(Th, wait = true);
+    //warning the numbering of the vertices (x,y) is
+    //given by $i = x/nx + nx* y/ny $
+    fespace Vh2(Th2, P1);
+    Vh2 f12;
+    f12[] = ff12; //transform array in finite element functions.
+    nc2 = isoline(Th2, f12, iso=0.25, close=0, Curves2, beginend=be2, smoothing=.1, ratio=0.5);
+    cout << "1" << endl;
+}
+cout << "2" << endl;
+//The longest isoline: the lake
+int ic02 = be2(0), ic12 = be2(1)-1;
+//plot([Curves(0, ic0:ic1), Curves(1, ic0:ic1)], wait=true);
+cout << "3" << endl;
+
+int NC2 = Curves2(2, ic12)/hsize;
+real xl2 = Curves2(0, ic02:ic12).max - 5;
+real yl2 = Curves2(1, ic02:ic12).min + 5;
+border G2(t=0, 1){P=Curve(Curves2, ic02, ic12, t); label=1+(x>xl2)*2+(y<yl2);}
+
+//#######################################
+plot(G(-NC)+G2(NC2), wait=true);
+cout << "4" << endl;
+
+mesh Th = buildmesh(G(-NC)+G2(NC2));
+plot(Th, wait=true);
+cout << "5" << endl;
+
+// real scale = sqrt(AreaLac/Th.area);
+// Th = movemesh(Th, [x*scale, y*scale]);
+Th = movemesh(Th, [x*AreaLac, y*AreaLac]);
+cout << "Th.area = " << Th.area << " Km^2 " << endl; //" == " << AreaLac << " Km^2 " << endl;
+plot(Th, ps="leman.eps");
+savemesh(Th, "covid.mesh");
+cout << "Finish" << endl;
+
