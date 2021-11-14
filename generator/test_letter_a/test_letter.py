@@ -8,7 +8,7 @@ let_a = Image.open("../../images/a2.png", "r")
 im = Image.new('RGB', (15000,15000), (255,255,255))
 draw = ImageDraw.Draw(im)
 _xy = []
-f = open("dots2.txt", "r")
+f = open("dots3.txt", "r")
 for l in f.readlines():
     _xy += [tuple(map(float, l.split(' ')[:2]))]
 
