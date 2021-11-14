@@ -82,7 +82,7 @@ cout << "5" << endl;
 // Th = movemesh(Th, [x*scale, y*scale]);
 Th = movemesh(Th, [x*AreaLac, y*AreaLac]);
 cout << "Th.area = " << Th.area << " Km^2 " << endl; //" == " << AreaLac << " Km^2 " << endl;
-plot(Th, ps="leman.eps");
-savemesh(Th, "covid.mesh");
+plot(Th);
+savemesh(Th, "letter_cords.mesh");
 cout << "Finish" << endl;
 
