@@ -3,7 +3,7 @@ import math
 from PIL import Image, ImageDraw, ImageFont
 from PIL.ImageFont import ImageFont, truetype
 
-original_size = 25
+original_size = 15
 covid_size = 125
 
 covid = Image.open("covid_alpha.png", "r").convert("RGBA")
@@ -12,16 +12,16 @@ covid = covid.resize((covid_size,covid_size), Image.ANTIALIAS)
 
 
 for letter in ["A", "G", "T", "C"]:
-    im = Image.new('RGB', (original_size*covid_size, original_size*covid_size), (255,255,255))
+    im = Image.new('RGBA', (original_size*covid_size, original_size*covid_size), (255,255,255,0))
     draw = ImageDraw.Draw(im)
 
 
-    _im = Image.open(letter+"25.png")
-    rgb = _im.convert("RGB")
+    _im = Image.open(letter+"25_2.png")
+    rgb = _im.convert("RGBA")
     points = []
-    for n in range(25):
-        for m in range(25):
-            if rgb.getpixel((n,m)) == (0,0,0):
+    for n in range(15):
+        for m in range(15):
+            if rgb.getpixel((n,m)) == (0,0,0,255):
                 points += [(n,m)]
 
     for p in points:
