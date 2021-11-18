@@ -23,7 +23,7 @@ letters = {let:get_letter(let, letter_size) for let in let_k}
 
 let_a = Image.open("/home/sl33n/coronft/images/a2.png", "r")
 
-im = Image.new('RGB', (5000,5000), (0, 0, 0))
+im = Image.new('RGB', (4096,4096), (0, 0, 0))
 draw = ImageDraw.Draw(im)
 
 #parse dots
