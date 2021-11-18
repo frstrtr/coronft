@@ -1,0 +1,83 @@
+{% load leaflet_tags %}
+<html>
+
+<head>
+    {% leaflet_js %} {% leaflet_css %}
+    <style>
+        .leaflet-container {
+            height: 100%;
+        }
+        
+        #map {
+            height: 100%;
+        }
+    </style>
+    <script src="https://pixijs.download/v4.8.9/pixi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-pixi-overlay@1/L.PixiOverlay.min.js">
+    </script>
+</head>
+
+<body>
+    <h1>Mushrooms Spots</h1>
+    <!-- {% leaflet_map "map" callback="window.map_init_basic" %} -->
+    <div id="map"></div>
+    <script>
+        // var loader = new PIXI.loaders.Loader();
+        var map = L.map('map').setView([0, 0], 1);
+        L.tileLayer('http://127.0.0.1:8000/map_tiles/{z}/{x}/{y}.png', {
+            attribution: 'Map data',
+            maxZoom: 6,
+            id: 'mapbox/streets-v11',
+            tileSize: 512
+                // zoomOffset: -1,
+        }).addTo(map);
+        var loader = new PIXI.loaders.Loader();
+        loader.add('marker', 'static/images/2/1.png');
+        loader.load(function(loader, resources) {
+            var markerLatLng = [51.5, -0.09];
+            var marker = new PIXI.Sprite(markerTexture);
+            marker.popup = L.popup({
+                    className: 'pixi-popup'
+                })
+                .setLatLng(markerLatLng)
+                .setContent('<b>Hello world!</b><br>I am a popup.')
+                .openOn(map);
+            var markerTexture = resources.marker.texture;
+            var markerLatLng = [0, 0];
+            var marker = new PIXI.Sprite(markerTexture);
+            marker.anchor.set(0.5, 1);
+
+            var pixiContainer = new PIXI.Container();
+            pixiContainer.addChild(marker);
+
+            var firstDraw = true;
+            var prevZoom;
+
+            var pixiOverlay = L.pixiOverlay(function(utils) {
+                var zoom = utils.getMap().getZoom();
+                var container = utils.getContainer();
+                var renderer = utils.getRenderer();
+                var project = utils.latLngToLayerPoint;
+                var scale = utils.getScale();
+
+                if (firstDraw) {
+                    var markerCoords = project(markerLatLng);
+                    marker.x = markerCoords.x;
+                    marker.y = markerCoords.y;
+                }
+
+                if (firstDraw || prevZoom !== zoom) {
+                    marker.scale.set(1 / scale);
+                }
+
+                firstDraw = false;
+                prevZoom = zoom;
+                renderer.render(container);
+            }, pixiContainer);
+            pixiOverlay.addTo(map);
+        });
+    </script>
+
+</body>
+
+</html>

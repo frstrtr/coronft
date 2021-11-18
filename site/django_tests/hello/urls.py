@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from firstapp import views
+import maps.views
 
 urlpatterns = [
     path('', views.index, name='home'),
@@ -23,6 +24,7 @@ urlpatterns = [
     path('tile/<int:z>/<int:y>/<int:x>', views.tile),
     path('contact', views.contact),
     path('map', views.map),
-    path('map2/<int:z>/<int:y>/<int:x>.png', views.map2),
+    path('map2', maps.views.map),
+    path('map_tiles/<int:z>/<int:y>/<int:x>.png', views.map2),
     path('admin/', admin.site.urls),
 ]
