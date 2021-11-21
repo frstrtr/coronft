@@ -89,8 +89,7 @@ def dot(pixels, _x, _y, scale):
         # for h in range(scale):
         for y in range(_y, _y+scale):
             # y = int(_y)+h
-            pixels[x][y] = True
-
+            pixels += [(x,y)]
 
 
 def draw_tile(z, x, y, pixels):
@@ -104,30 +103,65 @@ def draw_tile(z, x, y, pixels):
     Path("tiles/{0}/{1}".format(z, x, y)).mkdir(parents=True, exist_ok=True)
     _im.save('tiles/{0}/{1}/{2}.png'.format(z, x, y), quality=95)
 
+def draw_tiles(draws, pixels):
+    #todo: remove cache
+    cachex1 = {}
+    cachey1 = {}
+    cachex2 = {}
+    cachey2 = {}
+
+    def _get1(cache, pos):
+        return cache.setdefault(pos, int(pos/tile_size))
+
+    def _get2(cache, pos):
+        return cache.setdefault(pos, pos%tile_size)
+
+    for (x,y) in pixels:
+        draws[_get1(cachex1,x)][_get1(cachey1,y)].putpixel(xy=(_get2(cachex2,x),_get2(cachey2,y)), value=(255, 255, 255))
+
+    # for i in range(tile_size):
+    #     for h in range(tile_size):
+    #         if pixels[x*tile_size+i][y*tile_size+h]:
+    #             _draw.point((i,h), fill = "white")
+
+    
 
 # for let in let_k:
 #     #draw_letter(let)
 #     draw_point(let)
 
-for zoom in range(4):
+for zoom in range(5):
     print('Zoom:{0}'.format(zoom))
     t0 = time.time()
     scale = 2**zoom
     size = 3 * scale
     # _im = [[Image.new('RGB', (tile_size, tile_size), (0, 0, 0)) for _ in range(size) ] for _ in range(size)]
     # _draw = [[ImageDraw.Draw(_im[x][y]) for x in range(size) ] for y in range(size)]
-    pixels = [[False for _ in range(size*tile_size)] for _ in range(size*tile_size)]
+    # pixels = [[False for _ in range(size*tile_size)] for _ in range(size*tile_size)]
+    pixels = []
     for (_x,_y) in _xy:
         dot(pixels, _x*scale, _y*scale, scale)
         # __draw = 
         # _draw.rectangle((x*scale,y*scale,(x+1)*scale,(y+1)*scale), fill = "white")
     
+    _tiles = [[Image.new('RGB', (tile_size, tile_size), (0, 0, 0)) for _ in range(size) ] for _ in range(size)]
+    _draw_tiles = [[ImageDraw.Draw(_tiles[x][y]) for x in range(size) ] for y in range(size)]
+    # for x in range(size):
+    #     for y in range(size):
+    #         draw_tile(zoom, x, y, pixels)
+    draw_start = time.time()
+    draw_tiles(_tiles, pixels)
+    # Save to file
+    save_start = time.time()
     for x in range(size):
         for y in range(size):
-            draw_tile(zoom, x, y, pixels)
+            Path("tiles/{0}/{1}".format(zoom, x, y)).mkdir(parents=True, exist_ok=True)
+            _tiles[x][y].save('tiles/{0}/{1}/{2}.png'.format(zoom, x, y), quality=95)
 
     t1 = time.time()
     print("Time for zoom = {0} -> {1}".format(zoom, t1-t0))
+    print("Time for draw = {0} -> {1}".format(zoom, save_start-draw_start))
+    print("Time for save = {0} -> {1}".format(zoom, t1-save_start))
     # Path("tiles/test/{0}".format(zoom)).mkdir(parents=True, exist_ok=True)
     # _im.save('tiles/test/{0}/1.png'.format(zoom), quality=95)
     
