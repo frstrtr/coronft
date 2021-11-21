@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/sl33n/coronft/generator/map_tiles2/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -isystem /usr/include/opencv4  -g   -o CMakeFiles/GenTiles.dir/gen_tiles.cpp.o -c /home/sl33n/coronft/generator/map_tiles2/gen_tiles.cpp",
+  "file": "/home/sl33n/coronft/generator/map_tiles2/gen_tiles.cpp"
+}
+]

@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+project( GenTiles )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( GenTiles gen_tiles.cpp )
+target_link_libraries( GenTiles ${OpenCV_LIBS} )
