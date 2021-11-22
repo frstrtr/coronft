@@ -1,3 +1,0 @@
-/home/sl33n/coronft/generator/map_tiles2/CMakeFiles/rebuild_cache.dir
-/home/sl33n/coronft/generator/map_tiles2/CMakeFiles/edit_cache.dir
-/home/sl33n/coronft/generator/map_tiles2/CMakeFiles/GenTiles.dir

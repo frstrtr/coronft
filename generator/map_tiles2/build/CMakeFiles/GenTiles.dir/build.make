@@ -108,6 +108,7 @@ GenTiles: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.2.0
 GenTiles: /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.2.0
 GenTiles: /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.2.0
 GenTiles: /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.2.0
+GenTiles: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
 GenTiles: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.2.0
 GenTiles: /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.2.0
 GenTiles: /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.2.0

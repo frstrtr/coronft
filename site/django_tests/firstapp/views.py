@@ -44,6 +44,6 @@ def map(request):
     return HttpResponse(folium_map._repr_html_())
 
 def map2(request, z, x, y):
-    img = open('static/tiles/{0}/{1}/{2}.png'.format(z,x,y), 'rb')
+    img = open('static/tiles2/{0}/{1}/{2}.png'.format(z,x,y), 'rb')
     return response.FileResponse(img)
     # return render(request, "tile.html")

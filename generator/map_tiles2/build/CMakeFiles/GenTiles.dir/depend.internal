@@ -3,6 +3,8 @@
 
 CMakeFiles/GenTiles.dir/gen_tiles.cpp.o
  /home/sl33n/coronft/generator/map_tiles2/gen_tiles.cpp
+ /home/sl33n/coronft/generator/map_tiles2/gl.h
+ /home/sl33n/coronft/generator/map_tiles2/util.h
  /usr/include/opencv4/opencv2/calib3d.hpp
  /usr/include/opencv4/opencv2/core.hpp
  /usr/include/opencv4/opencv2/core/affine.hpp
