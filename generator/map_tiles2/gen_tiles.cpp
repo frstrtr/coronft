@@ -7,12 +7,14 @@ using namespace cv;
 using namespace std::chrono;
 
 // #pragma pack(push, 2)
-struct BGR
-{
-    uchar blue;
-    uchar green;
-    uchar red;
-};
+// struct BGR
+// {
+//     uchar blue;
+//     uchar green;
+//     uchar red;
+// };
+
+#define TILE_SIZE 256
 
 int main(int argc, char **argv)
 {

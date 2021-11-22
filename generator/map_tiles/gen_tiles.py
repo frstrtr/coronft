@@ -104,20 +104,8 @@ def draw_tile(z, x, y, pixels):
     _im.save('tiles/{0}/{1}/{2}.png'.format(z, x, y), quality=95)
 
 def draw_tiles(draws, pixels):
-    #todo: remove cache
-    cachex1 = {}
-    cachey1 = {}
-    cachex2 = {}
-    cachey2 = {}
-
-    def _get1(cache, pos):
-        return cache.setdefault(pos, int(pos/tile_size))
-
-    def _get2(cache, pos):
-        return cache.setdefault(pos, pos%tile_size)
-
     for (x,y) in pixels:
-        draws[_get1(cachex1,x)][_get1(cachey1,y)].putpixel(xy=(_get2(cachex2,x),_get2(cachey2,y)), value=(255, 255, 255))
+        draws[x//tile_size][y//tile_size].putpixel(xy=(x%tile_size,y%tile_size), value=(255, 255, 255))
 
     # for i in range(tile_size):
     #     for h in range(tile_size):
@@ -130,7 +118,7 @@ def draw_tiles(draws, pixels):
 #     #draw_letter(let)
 #     draw_point(let)
 
-for zoom in range(5):
+for zoom in range(6):
     print('Zoom:{0}'.format(zoom))
     t0 = time.time()
     scale = 2**zoom
