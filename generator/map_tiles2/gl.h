@@ -6,17 +6,19 @@ using namespace std;
 
 struct coord
 {
-    int x;
-    int y;
+    float x;
+    float y;
 };
 
-void dot(vector<coord> &pixels, int _x, int _y, int scale)
+void dot(vector<coord> &pixels, float __x, float __y, int scale)
 {
+    int _x = __x;
+    int _y = __y;
     for (int x = _x; x < _x + scale; x++)
     {
         for (int y = _y; y < _y + scale; y++)
         {
-            pixels.push_back({x, y});
+            pixels.push_back({(float)x, (float)y});
         }
     }
 }
@@ -27,7 +29,7 @@ void draw_tiles(const vector<coord> &pixels, vector<vector<Mat>> &tiles, int til
     // Drawing
     for (auto xy : pixels)
     {
-        tiles[xy.x / tile_size][xy.y / tile_size].at<uchar>(xy.x % tile_size, xy.y % tile_size) = 255;
+        tiles[(int)xy.x / tile_size][(int)xy.y / tile_size].at<uchar>((int)xy.x % tile_size, (int)xy.y % tile_size) = 255;
     }
     END_TIMER(draw_tiles);
 }

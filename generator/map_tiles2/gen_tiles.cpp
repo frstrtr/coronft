@@ -82,8 +82,8 @@ int main()
     vector<coord> letter_coords;
     {
         fstream letter_coords_file("letter_coords.txt", std::ios_base::in);
-        int temp_x;
-        int temp_y;
+        float temp_x;
+        float temp_y;
         while (letter_coords_file >> temp_x >> temp_y)
         {
             letter_coords.push_back({temp_x, temp_y});
